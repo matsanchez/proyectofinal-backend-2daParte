@@ -1,6 +1,6 @@
 /*import "./src/daos/index.js";*/
-import productosRouter from "./src/routes/productos.mongodb.routes.js";
-import carritosRouter from "./src/routes/carritos.mongodb.routes.js";
+import productosRouter from "./src/routes/productos.routes.js";
+import carritosRouter from "./src/routes/carritos.routes.js";
 import express from "express";
 
 const PORT = process.env.PORT || 8080;

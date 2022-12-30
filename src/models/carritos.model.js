@@ -1,8 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, mongoose } from "mongoose";
 
 const schema = new Schema(
   {
-    nombre: { type: String, require: true, max: 100 },
+    productos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "productos",
+      },
+    ],
   },
   {
     timestamps: true,
@@ -10,4 +15,4 @@ const schema = new Schema(
   }
 );
 
-export default carritosSchema = model("carritos", schema);
+export const carritosSchema = model("carritos", schema);

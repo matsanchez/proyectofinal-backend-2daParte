@@ -1,4 +1,4 @@
-import "../config/db.remote.config.js";
+/*import "../config/db.remote.config.js"*/
 
 class Manager {
   constructor(table) {

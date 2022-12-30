@@ -18,7 +18,7 @@ const auth = (req, res, next) => {
   next();
 };
 
-const validationUrl = (req, res, next) => {
+export const validationUrl = (req, res, next) => {
   if (isNaN(req.params.id) && isNaN(req.params.id_prod))
     return res.status(400).send({
       error: -2,
