@@ -32,7 +32,9 @@ npm run dev (modo developer) Nodemon
 ```
 modificar el .env la variable de entorno VAR_DB_PERSISTENCIA=
 
-para trabajar con mongo, poner mongo, y para firestore, firestore
+VAR_DB_PERSISTENCIA=mongo (Persistencia en Mongo DB)
+VAR_DB_PERSISTENCIA=firestore (Persistencia en Firebase/Firestore)
+VAR_DB_PERSISTENCIA=sqlite3 (Persistencia db Sqlite3)
 ```
 
 Autor: Matias Sanchez
