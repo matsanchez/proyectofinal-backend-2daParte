@@ -1,8 +1,11 @@
 import dotenv from "dotenv";
 import { ProductosDaoMongo } from "./productos/productos.dao.mongodb.js";
 import { ProductosDaoFirestore } from "./productos/productos.dao.firestore.js";
+import { ProductosDaoSqlite3 } from "./productos/productos.dao.sqlite3.js";
 import { CarritosDaoFirestore } from "./carritos/carritos.dao.firestore.js";
 import { CarritosDaoMongo } from "./carritos/carritos.dao.mongodb.js";
+import { CarritosDaoSqlite3 } from "./carritos/carritos.dao.sqlite3.js";
+
 dotenv.config();
 
 let productosDao;
@@ -18,7 +21,10 @@ switch (process.env.VAR_DB_PERSISTENCIA) {
     productosDao = ProductosDaoFirestore;
     carritosDao = CarritosDaoFirestore;
     break;
-
+  case "sqlite3":
+    productosDao = ProductosDaoSqlite3;
+    carritosDao = CarritosDaoSqlite3;
+    break;
   default:
     break;
 }
