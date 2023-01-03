@@ -23,6 +23,11 @@ class Manager {
       };
     }
   }
+  async agregarProducto(id, params) {
+    try {
+      return this._table.findByIdAndUpdate(id, { productos: params });
+    } catch (error) {}
+  }
   async updateById(id, params) {
     try {
       return this._table.findByIdAndUpdate(id, { params });

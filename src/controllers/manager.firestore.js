@@ -1,9 +1,7 @@
 import admin from "firebase-admin";
 import fs from "fs";
 
-const serviceAccount = JSON.parse(
-  fs.readFileSync("./access.firebase.json", "utf-8")
-);
+const serviceAccount = JSON.parse(fs.readFileSync("./access.firebase.json", "utf-8"));
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -19,20 +17,33 @@ class Manager {
   }
 
   async create(params, url) {
+    console.log(url);
+    if (url === "/api/carritos/") {
+      params = {
+        productos: [],
+      };
+    }
     const rta = await this._db.collection(this._table).add(params);
     return { status: "success", mensaje: "Producto agregado exitosamente" };
   }
   async getAll() {
     const list = [];
     const data = await this._db.collection(this._table).get();
-    const result = data.forEach((doc) =>
-      list.push({ id: doc.id, ...doc.data() })
-    );
+    const result = data.forEach((doc) => list.push({ id: doc.id, ...doc.data() }));
     return list;
   }
   async getById(id) {
     const data = await this._db.collection(this._table).doc(id).get();
     return { ...data.data(), id: data.id };
+  }
+  async agregarProducto(id, params) {
+    try {
+      const data = this._db
+        .collection(this._table)
+        .doc(id)
+        .update({ productos: JSON.parse(JSON.stringify(params)) });
+      return { ...data.data(), id: data.id };
+    } catch (error) {}
   }
   async updateById(id, params) {
     const data = this._db
