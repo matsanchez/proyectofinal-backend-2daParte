@@ -17,7 +17,6 @@ class Manager {
   }
 
   async create(params, url) {
-    console.log(url);
     if (url === "/api/carritos/") {
       params = {
         productos: [],
@@ -38,12 +37,25 @@ class Manager {
   }
   async agregarProducto(id, params) {
     try {
-      const data = this._db
-        .collection(this._table)
-        .doc(id)
-        .update({ productos: JSON.parse(JSON.stringify(params)) });
-      return { ...data.data(), id: data.id };
-    } catch (error) {}
+      let list = [];
+      const dataObj = await this.getById(id);
+      list.push(...dataObj.productos);
+      list.push(params);
+      await this._db.collection(this._table).doc(id).update({ productos: list });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  async deleteProducto(id, idProd) {
+    try {
+      let list = [];
+      const dataObj = await this.getById(id);
+      list.push(...dataObj.productos);
+      let newList = list.filter((prod) => prod.id !== idProd);
+      await this._db.collection(this._table).doc(id).update({ productos: newList });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   async updateById(id, params) {
     const data = this._db

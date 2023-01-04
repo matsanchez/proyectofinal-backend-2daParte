@@ -25,8 +25,28 @@ class Manager {
   }
   async agregarProducto(id, params) {
     try {
-      return this._table.findByIdAndUpdate(id, { productos: params });
+      let list = [];
+      const dataObj = await this.getById(id);
+      list.push(...dataObj.productos);
+      list.push(params);
+      return this._table.findByIdAndUpdate(id, { productos: list });
     } catch (error) {}
+  }
+  async deleteProducto(id, idProd) {
+    try {
+      let list = [];
+      let newList = [];
+      const dataObj = await this.getById(id);
+      list.push(...dataObj.productos);
+      for (let i = 0; i <= list.length - 1; i++) {
+        if (list[i]._id.toString() != idProd) {
+          newList.push(list[i]);
+        }
+      }
+      return this._table.findByIdAndUpdate(id, { productos: newList });
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   async updateById(id, params) {
     try {

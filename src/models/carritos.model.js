@@ -2,12 +2,7 @@ import { Schema, model, mongoose } from "mongoose";
 
 const schema = new Schema(
   {
-    productos: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "productos",
-      },
-    ],
+    productos: [],
   },
   {
     timestamps: true,

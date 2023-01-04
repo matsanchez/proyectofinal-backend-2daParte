@@ -23,7 +23,6 @@ carritosRouter
       return res.status(400).send(carrito);
     }
     let producto = await productoDao.getById(req.params.id_prod);
-    console.log(producto);
     let agregar = await carritoDao.agregarProducto(req.params.id, producto);
     res.send(agregar);
   })
@@ -32,6 +31,14 @@ carritosRouter
   })
   .delete("/:id", async (req, res) => {
     res.send(await carritoDao.deleteById(req.params.id));
+  })
+  .delete("/:id/productos/:id_prod", async (req, res) => {
+    let carrito = await carritoDao.getById(req.params.id);
+    if (carrito.status === "error") {
+      return res.status(400).send(carrito);
+    }
+    let producto = await carritoDao.deleteProducto(req.params.id, req.params.id_prod);
+    res.send("Producto/s Borrados");
   });
 
 export default carritosRouter;
